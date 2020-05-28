@@ -5,16 +5,28 @@ using UnityEngine.InputSystem;
 
 
 public class Player : MonoBehaviour {
-    // Start is called before the first frame update
-    Controls input;
 
-    void Start() {
-        input = new Controls();
-        input.Enable();
-    }
+	Controls input;
+	Rigidbody2D rb;
 
-    // Update is called once per frame
-    void Update() {
-        Debug.Log(input.Player.Move.ReadValue<Vector2>().x);
-    }
+	public float speed = 3f;
+	public float torque = 3f;
+
+	public void Awake() {
+		rb = GetComponent<Rigidbody2D>();
+	}
+
+	public void Start() {
+		input = new Controls();
+		input.Enable();
+	}
+
+
+	public void FixedUpdate() {
+		//Debug.Log(input.Player.Move.ReadValue<Vector2>().x);
+		float move = input.Player.Move.ReadValue<Vector2>().y;
+		float turn = input.Player.Move.ReadValue<Vector2>().x;
+		rb.AddRelativeForce(new Vector2(0, move * speed));
+		rb.AddTorque(turn * torque);
+	}
 }
