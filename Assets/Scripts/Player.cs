@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 
 public class Player : MonoBehaviour {
-
 	Controls input;
 	Rigidbody2D rb;
+
+	public string damageLayer = "Friendly";
 
 	public float speed = 3f;
 	public float torque = 3f;
@@ -23,10 +24,22 @@ public class Player : MonoBehaviour {
 
 
 	public void FixedUpdate() {
-		//Debug.Log(input.Player.Move.ReadValue<Vector2>().x);
 		float move = input.Player.Move.ReadValue<Vector2>().y;
 		float turn = input.Player.Move.ReadValue<Vector2>().x;
 		rb.AddRelativeForce(new Vector2(0, move * speed));
 		rb.AddTorque(turn * torque);
+	}
+
+
+	public void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.otherCollider.tag != "Tusk") {
+			return;
+		}
+		IDamageable dam;
+		if ((dam = collision.collider.GetComponent<IDamageable>()) != null) {
+			if (dam.CanBeDamaged(damageLayer)) {
+				dam.Damage(5);
+			}
+		}
 	}
 }

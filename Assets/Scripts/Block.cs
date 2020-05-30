@@ -7,14 +7,12 @@ public class Block : MonoBehaviour, IDamageable {
 
 	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][DamageLayer];
 
-	public void Damage(float damage) {
-		throw new System.NotImplementedException();
-	}
+	public float health = 10f;
 
-	public void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.collider.gameObject.CompareTag("Tusk")) {
+	public void Damage(float damage) {
+		health -= damage;
+		if (health <= 0) {
 			Destroy(gameObject);
 		}
 	}
-
 }
