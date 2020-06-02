@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
 					return;
 				}*/
 
-				dam.Damage((mySpeed - otherSpeed).sqrMagnitude * damage, collision.GetContact(0).point - collision.GetContact(0).normal * 0.01f);
+				dam.Damage((mySpeed - otherSpeed).magnitude * damage, collision.GetContact(0).point - collision.GetContact(0).normal * 0.001f);
 			}
 		}
 	}
