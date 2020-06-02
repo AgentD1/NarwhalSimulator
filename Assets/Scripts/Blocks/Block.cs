@@ -9,7 +9,7 @@ public class Block : MonoBehaviour, IDamageable {
 
 	public float health = 10f;
 
-	public void Damage(float damage) {
+	public void Damage(float damage, Vector2 damageLocation) {
 		health -= damage;
 		if (health <= 0) {
 			Destroy(gameObject);
