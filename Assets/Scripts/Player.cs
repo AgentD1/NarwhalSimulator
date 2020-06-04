@@ -56,14 +56,8 @@ public class Player : MonoBehaviour {
 			if (dam.CanBeDamaged(damageLayer)) {
 				Vector2 mySpeed = rb.GetPointVelocity(collision.GetContact(0).point);
 				Vector2 otherSpeed = collision.rigidbody.GetPointVelocity(collision.GetContact(0).point);
-				//Vector2 mySpeed = rb.velocity;
-				//Vector2 otherSpeed = collision.rigidbody.velocity;
 
-				/*if ((mySpeed - otherSpeed).sqrMagnitude < minimumSpeedDamage * minimumSpeedDamage) {
-					return;
-				}*/
-
-				dam.Damage((mySpeed - otherSpeed).magnitude * damage, collision.GetContact(0).point - collision.GetContact(0).normal * 0.001f);
+				dam.Damage((mySpeed - otherSpeed).magnitude * damage, collision.GetContact(0).point - collision.GetContact(0).normal * 0.01f);
 			}
 		}
 	}
