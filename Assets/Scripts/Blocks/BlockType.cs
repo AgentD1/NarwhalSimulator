@@ -9,6 +9,7 @@ public class BlockType {
 
 	public string name;
 	public float maxHealth;
+	public int score;
 
 	public UnityEngine.Tilemaps.Tile[] damageTiles;
 #pragma warning restore CA2235 // Mark all non-serializable fields

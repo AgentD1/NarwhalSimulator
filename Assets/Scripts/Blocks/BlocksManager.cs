@@ -39,6 +39,7 @@ public class BlocksManager : MonoBehaviour, IDamageable {
 				}
 				dynamicTileData[pos] -= damage;
 				if (dynamicTileData[pos] <= 0) {
+					Player.instance.GiveCoins(blockTypesDict[t.sprite].score);
 					dynamicTileData.Remove(pos);
 					blocksTilemap.SetTile(position, null);
 					breakTexturesTilemap.SetTile(position, null);
