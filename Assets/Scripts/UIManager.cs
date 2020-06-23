@@ -15,6 +15,6 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void CoinsChanged() {
-		coinsText.text = coinsTextDefault + p.Coins;
+		coinsText.text = coinsTextDefault + p.coins;
 	}
 }

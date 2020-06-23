@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Block : MonoBehaviour, IDamageable {
-	public string DamageLayer { get; protected set; } = "Unfriendly";
+	public string damageLayer { get; protected set; } = "Unfriendly";
 
-	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][DamageLayer];
+	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][this.damageLayer];
 
 	public float health = 10f;
 

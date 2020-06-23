@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class BlocksManager : MonoBehaviour, IDamageable {
-	public string DamageLayer { get; protected set; } = "Unfriendly";
-	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][DamageLayer];
+	public string damageLayer { get; protected set; } = "Unfriendly";
+	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][this.damageLayer];
 
 	public Grid grid;
 	public Tilemap blocksTilemap;
@@ -22,10 +22,6 @@ public class BlocksManager : MonoBehaviour, IDamageable {
 		foreach (BlockType b in blockTypes) {
 			blockTypesDict.Add(b.sprite, b);
 		}
-	}
-
-	public void Update() {
-
 	}
 
 	public void Damage(float damage, Vector2 damageLocation) {
