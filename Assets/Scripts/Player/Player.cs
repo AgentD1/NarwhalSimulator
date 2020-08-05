@@ -21,7 +21,8 @@ public class Player : MonoBehaviour {
 	public int coins { get; protected set; } = 0;
 
 	public List<PlayerPart> parts = new List<PlayerPart>();
-	public List<GameObject> defaultPlayerPartPrefabs = new List<GameObject>();
+	public List<ShopItem> defaultPlayerItems = new List<ShopItem>();
+	public List<ShopItem> ownedItems = new List<ShopItem>();
 
 	public GameObject newTusk;
 
@@ -36,8 +37,11 @@ public class Player : MonoBehaviour {
 	public void Start() {
 		input = new Controls();
 		input.Enable();
-		foreach (GameObject gameObject in defaultPlayerPartPrefabs) {
-			AddPart(gameObject);
+		foreach (ShopItem item in defaultPlayerItems) {
+			AddPart(item);
+		}
+		foreach (ShopItem item in defaultPlayerItems) {
+			ownedItems.Add(item);
 		}
 		//linearDrag = rb.drag;
 		ResetCoins();
@@ -51,6 +55,23 @@ public class Player : MonoBehaviour {
 		Vector3 newPos = partGameObject.transform.position;
 		Quaternion newRot = partGameObject.transform.rotation;
 		GameObject go = Instantiate(partGameObject, transform);
+		go.name = partGameObject.name;
+		go.transform.localPosition = newPos;
+		go.transform.localRotation = newRot;
+
+		PlayerPart part = go.GetComponent<PlayerPart>();
+
+		parts.Add(part);
+
+		part.Initialize(this);
+	}
+
+	public void AddPart(ShopItem partObject) {
+		GameObject partGameObject = partObject.prefabToCreate;
+		Vector3 newPos = partGameObject.transform.position;
+		Quaternion newRot = partGameObject.transform.rotation;
+		GameObject go = Instantiate(partGameObject, transform);
+		go.name = partObject.itemName;
 		go.transform.localPosition = newPos;
 		go.transform.localRotation = newRot;
 
@@ -69,6 +90,12 @@ public class Player : MonoBehaviour {
 	public void RemovePart(PlayerPart part) {
 		parts.Remove(part);
 		Destroy(part.gameObject);
+	}
+
+	public void RemovePart(ShopItem part) {
+		PlayerPart myGo = FindObjectsOfType<PlayerPart>().First((x) => { return x.gameObject.name == part.itemName; });
+		parts.Remove(myGo);
+		Destroy(myGo.gameObject);
 	}
 
 	public PlayerPart GetPartOfType(string type) {
@@ -95,9 +122,9 @@ public class Player : MonoBehaviour {
 	public UnityEvent partAdded { get; protected set; } = new UnityEvent();
 
 	public void Update() {
-		if (UnityEngine.InputSystem.Keyboard.current[UnityEngine.InputSystem.Key.Space].wasPressedThisFrame) {
+		/*if (UnityEngine.InputSystem.Keyboard.current[UnityEngine.InputSystem.Key.Space].wasPressedThisFrame) {
 			ReplaceOrAddPart(newTusk);
-		}
+		}*/
 	}
 
 	public UnityEvent coinsChanged { get; protected set; } = new UnityEvent();
