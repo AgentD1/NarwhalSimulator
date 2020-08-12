@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Default Tusk
   description: 
-  image: {fileID: 21300000, guid: b620f407310e74e4b94943bcd1c0c869, type: 3}
+  image: {fileID: 21300000, guid: 1df9ec05245694c4689cdd238bed30db, type: 3}
   prefabToCreate: {fileID: 6759749764724790111, guid: 36ac883ff2631e147bd18e1e4179e46b,
     type: 3}
   price: 0
+  type: 3

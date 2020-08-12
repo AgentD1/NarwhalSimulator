@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MenuManager : MonoBehaviour {
+	public static MenuManager instance;
+
 	public List<Menu> menus = new List<Menu>();
 
 	public Stack<Menu> menuStack = new Stack<Menu>();
@@ -11,6 +13,10 @@ public class MenuManager : MonoBehaviour {
 	Controls input;
 
 	public void Awake() {
+		if (instance != null) {
+			Debug.LogError("There are more than 1 menu manager. Why. Fix it");
+		}
+		instance = this;
 		input = new Controls();
 		input.Enable();
 	}
@@ -35,6 +41,16 @@ public class MenuManager : MonoBehaviour {
 			Menu m = menuStack.Peek();
 			if (m.Close()) {
 				menuStack.Pop();
+			}
+		}
+	}
+
+	public void CloseMenu(Menu m) {
+		while (menuStack.Count != 0) {
+			Menu cm = menuStack.Pop();
+			cm.Close();
+			if (cm == m) {
+				return;
 			}
 		}
 	}

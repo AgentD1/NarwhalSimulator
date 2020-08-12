@@ -11,7 +11,7 @@ public class BasicFlukes : PlayerPart {
 	float linearDrag;
 
 	public BasicFlukes() {
-		type = "Flukes";
+		//type = "Flukes";
 	}
 
 	public void Awake() {

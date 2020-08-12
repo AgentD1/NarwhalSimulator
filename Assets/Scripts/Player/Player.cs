@@ -71,7 +71,7 @@ public class Player : MonoBehaviour {
 		Vector3 newPos = partGameObject.transform.position;
 		Quaternion newRot = partGameObject.transform.rotation;
 		GameObject go = Instantiate(partGameObject, transform);
-		go.name = partObject.itemName;
+		go.name = partGameObject.name;
 		go.transform.localPosition = newPos;
 		go.transform.localRotation = newRot;
 
@@ -99,13 +99,21 @@ public class Player : MonoBehaviour {
 	}
 
 	public PlayerPart GetPartOfType(string type) {
-		return parts.FirstOrDefault((p) => { return p.type == type; });
+		return parts.FirstOrDefault((p) => { return p.item.type.ToString() == type; });
+	}
+
+	public PlayerPart GetPartOfType(ShopItem itemWithType) {
+		return parts.FirstOrDefault((p) => { return p.item.type == itemWithType.type; });
+	}
+
+	public PlayerPart GetPartOfType(ShopItem.ItemType type) {
+		return parts.FirstOrDefault((p) => { return p.item.type == type; });
 	}
 
 	public PlayerPart GetPartOfSameType(GameObject go) {
 		PlayerPart goPart = go.GetComponent<PlayerPart>();
 		if (goPart != null) {
-			return parts.FirstOrDefault((p) => { return p.type == goPart.type; });
+			return GetPartOfType(goPart.item);
 		} else {
 			return null;
 		}
@@ -121,11 +129,11 @@ public class Player : MonoBehaviour {
 
 	public UnityEvent partAdded { get; protected set; } = new UnityEvent();
 
-	public void Update() {
+	/*public void Update() {
 		/*if (UnityEngine.InputSystem.Keyboard.current[UnityEngine.InputSystem.Key.Space].wasPressedThisFrame) {
 			ReplaceOrAddPart(newTusk);
-		}*/
-	}
+		} * / //bruhhhh i have to put a space here :(
+	}*/
 
 	public UnityEvent coinsChanged { get; protected set; } = new UnityEvent();
 	public UnityEvent coinsGained { get; protected set; } = new UnityEvent();

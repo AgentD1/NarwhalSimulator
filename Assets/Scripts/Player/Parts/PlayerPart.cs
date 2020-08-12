@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class PlayerPart : MonoBehaviour {
 	public Player player { get; protected set; }
-	public string type { get; protected set; } = "NoTypeSet"; // Types: Tusk Flippers Body Flukes
+	public ShopItem item { get; protected set; }
 	public virtual void Initialize(Player p) {
 		player = p;
 	}

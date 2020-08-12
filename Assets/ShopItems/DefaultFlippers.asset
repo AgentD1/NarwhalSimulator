@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Default Flippers
   description: 
-  image: {fileID: 21300000, guid: bb8d1d9ccb9f0814aba77e9c1c4d40bf, type: 3}
+  image: {fileID: 21300000, guid: 35438700339b53e4d8ee3f58cfeb4ca8, type: 3}
   prefabToCreate: {fileID: 3339889117080204826, guid: f986e1b3787456441b2f92349a82b0f3,
     type: 3}
   price: 0
+  type: 2

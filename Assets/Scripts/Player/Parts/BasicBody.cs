@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class BasicBody : PlayerPart {
 	public BasicBody() {
-		type = "Body";
+		//type = "Body";
 	}
 }

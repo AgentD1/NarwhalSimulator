@@ -7,7 +7,7 @@ public class BasicTusk : PlayerPart {
 	public string damageLayer = "Friendly";
 
 	public BasicTusk() {
-		type = "Tusk";
+		//type = "Tusk";
 	}
 
 	public void OnCollisionEnter2D(Collision2D collision) {

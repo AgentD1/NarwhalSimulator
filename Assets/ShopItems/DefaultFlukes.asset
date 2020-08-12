@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Default Flukes
   description: 
-  image: {fileID: 21300000, guid: 5872573dcd57eba4ca82d3a7f3da032a, type: 3}
+  image: {fileID: 21300000, guid: eb1c975fd830bce4f952f86ba69e7f5f, type: 3}
   prefabToCreate: {fileID: 1117124696925459117, guid: 2fefe77dd714b5d4f82ed3def845e983,
     type: 3}
   price: 0
+  type: 1

@@ -9,7 +9,7 @@ public class BasicFlippers : PlayerPart {
 	public float torque = 3f;
 
 	public BasicFlippers() {
-		type = "Flippers";
+		//type = "Flippers";
 	}
 
 	public void Awake() {
