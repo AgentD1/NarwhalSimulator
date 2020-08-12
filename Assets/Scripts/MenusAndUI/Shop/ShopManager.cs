@@ -125,10 +125,16 @@ public class ShopManager : MonoBehaviour {
 		}
 	}
 
+	void UpdateShopElements() {
+		foreach (ShopItem go in itemGameObjects.Keys) {
+			UpdateShopElement(go);
+		}
+	}
+
 	public void EquipClicked(ShopItem item) {
 		if (Player.instance.coins >= item.price) {
-			Player.instance.ReplaceOrAddPart(item.prefabToCreate);
-			UpdateShopElement(item);
+			Player.instance.ReplaceOrAddPart(item);
+			UpdateShopElements(); // TODO stop using this and start updating individual elements instead for efficiency
 		}
 	}
 
@@ -136,8 +142,8 @@ public class ShopManager : MonoBehaviour {
 		if (Player.instance.coins >= item.price) {
 			Player.instance.RemoveCoins(item.price);
 			Player.instance.ownedItems.Add(item);
-			Player.instance.ReplaceOrAddPart(item.prefabToCreate);
-			UpdateShopElement(item);
+			Player.instance.ReplaceOrAddPart(item);
+			UpdateShopElements();
 		}
 	}
 

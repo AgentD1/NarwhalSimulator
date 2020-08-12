@@ -51,7 +51,7 @@ public class Player : MonoBehaviour {
 	/// Instantiate the requested Player Part GameObject
 	/// </summary>
 	/// <param name="partGameObject">The part's game object</param>
-	public void AddPart(GameObject partGameObject) {
+	/*public void AddPart(GameObject partGameObject) {
 		Vector3 newPos = partGameObject.transform.position;
 		Quaternion newRot = partGameObject.transform.rotation;
 		GameObject go = Instantiate(partGameObject, transform);
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour {
 		parts.Add(part);
 
 		part.Initialize(this);
-	}
+	}*/
 
 	public void AddPart(ShopItem partObject) {
 		GameObject partGameObject = partObject.prefabToCreate;
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
 
 		parts.Add(part);
 
-		part.Initialize(this);
+		part.Initialize(this, partObject);
 	}
 
 	public void RemovePart(GameObject partGameObject) {
@@ -119,8 +119,16 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void ReplaceOrAddPart(GameObject go) {
+	/*public void ReplaceOrAddPart(GameObject go) {
 		PlayerPart replacePart = GetPartOfSameType(go);
+		if (replacePart != null) {
+			RemovePart(replacePart);
+		}
+		AddPart(go);
+	}*/
+
+	public void ReplaceOrAddPart(ShopItem go) {
+		PlayerPart replacePart = GetPartOfType(go);
 		if (replacePart != null) {
 			RemovePart(replacePart);
 		}
