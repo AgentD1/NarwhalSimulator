@@ -48,12 +48,14 @@ MonoBehaviour:
   damageLayer: Friendly
   damage: 0.1
   parts: []
-  defaultPlayerPartPrefabs:
-  - {fileID: 3339889117080204826, guid: f986e1b3787456441b2f92349a82b0f3, type: 3}
-  - {fileID: 1117124696925459117, guid: 2fefe77dd714b5d4f82ed3def845e983, type: 3}
-  - {fileID: 6759749764724790111, guid: 36ac883ff2631e147bd18e1e4179e46b, type: 3}
-  - {fileID: 7813198950514527394, guid: 2c61e926e46b57541ac6d36f7ec4e9db, type: 3}
-  newTusk: {fileID: 1449642033140812553, guid: 85f59a77ba526a448b4d5536080c948f, type: 3}
+  defaultPlayerItems:
+  - {fileID: 11400000, guid: 44ede596f57c27c4c864b9dc1e276fb7, type: 2}
+  - {fileID: 11400000, guid: c67f6ac87b57ed045ac0281199d99367, type: 2}
+  - {fileID: 11400000, guid: a66814ac19865b74299c1a44eb78ca06, type: 2}
+  - {fileID: 11400000, guid: a1393dbaa3e2fa84fbf37c033d003bde, type: 2}
+  ownedItems: []
+  health: 0
+  maxHealth: 0
 --- !u!50 &8543224233722774071
 Rigidbody2D:
   serializedVersion: 4

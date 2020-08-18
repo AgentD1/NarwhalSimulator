@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicBody : PlayerPart {
-	public BasicBody() {
-		//type = "Body";
+	public float maxHealth = 0f;
+
+	public void Start() {
+		Player.instance.RefreshMaxHealth();
 	}
 }

@@ -3,28 +3,17 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IDamageable {
 	public static Player instance;
 
 	Controls input;
 	public Rigidbody2D rb { get; protected set; }
 
-	public string damageLayer = "Friendly";
-
-	/*public float speed = 3f;
-	public float acceleration = 1f;
-	public float torque = 3f;
-	float linearDrag;*/
-
 	public float damage = 0.1f;
-
-	public int coins { get; protected set; } = 0;
 
 	public List<PlayerPart> parts = new List<PlayerPart>();
 	public List<ShopItem> defaultPlayerItems = new List<ShopItem>();
 	public List<ShopItem> ownedItems = new List<ShopItem>();
-
-	public GameObject newTusk;
 
 	public void Awake() {
 		if (instance != null) {
@@ -45,7 +34,16 @@ public class Player : MonoBehaviour {
 		}
 		//linearDrag = rb.drag;
 		ResetCoins();
+		RefreshMaxHealth();
+		health = maxHealth;
+		Damage(0); // Refresh health bar
 	}
+
+	public void Update() {
+		// Damage(0.01f, Vector2.zero);
+	}
+
+	#region Parts
 
 	/// <summary>
 	/// Instantiate the requested Player Part GameObject
@@ -66,6 +64,8 @@ public class Player : MonoBehaviour {
 		part.Initialize(this);
 	}*/
 
+	public UnityEvent partAdded { get; protected set; } = new UnityEvent();
+
 	public void AddPart(ShopItem partObject) {
 		GameObject partGameObject = partObject.prefabToCreate;
 		Vector3 newPos = partGameObject.transform.position;
@@ -80,6 +80,8 @@ public class Player : MonoBehaviour {
 		parts.Add(part);
 
 		part.Initialize(this, partObject);
+
+		partAdded.Invoke();
 	}
 
 	public void RemovePart(GameObject partGameObject) {
@@ -135,19 +137,16 @@ public class Player : MonoBehaviour {
 		AddPart(go);
 	}
 
-	public UnityEvent partAdded { get; protected set; } = new UnityEvent();
+	#endregion
 
-	/*public void Update() {
-		/*if (UnityEngine.InputSystem.Keyboard.current[UnityEngine.InputSystem.Key.Space].wasPressedThisFrame) {
-			ReplaceOrAddPart(newTusk);
-		} * / //bruhhhh i have to put a space here :(
-	}*/
+	#region Coins
+
+	public int coins { get; protected set; } = 0;
 
 	public UnityEvent coinsChanged { get; protected set; } = new UnityEvent();
 	public UnityEvent coinsGained { get; protected set; } = new UnityEvent();
 	public UnityEvent coinsLost { get; protected set; } = new UnityEvent();
 	public UnityEvent coinsReset { get; protected set; } = new UnityEvent();
-
 
 	public void GiveCoins(int coins) {
 		if (coins <= 0) {
@@ -187,4 +186,34 @@ public class Player : MonoBehaviour {
 		coinsChanged.Invoke();
 		coinsReset.Invoke();
 	}
+
+	#endregion
+
+	#region Health
+
+	public float health;
+	public float maxHealth;
+
+	public UnityEvent healthChanged { get; protected set; } = new UnityEvent();
+
+	public void RefreshMaxHealth() {
+		maxHealth = GetPartOfType(ShopItem.ItemType.Body).GetComponent<BasicBody>().maxHealth;
+	}
+
+	public void Damage(float damage) {
+		Damage(damage, Vector2.zero);
+	}
+
+	public void Damage(float damage, Vector2 damageLocation) {
+		health = Mathf.Clamp(health - damage, 0, maxHealth);
+
+		healthChanged.Invoke();
+	}
+
+	public string damageLayer = "Friendly";
+	string IDamageable.damageLayer => damageLayer;
+
+	public bool CanBeDamaged(string damageLayer) => DamageLayers.damageLayers[damageLayer][this.damageLayer];
+
+	#endregion
 }
