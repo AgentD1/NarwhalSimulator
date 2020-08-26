@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Script: {fileID: 11500000, guid: 44e0a43089438274289bd641ae758139, type: 3}
   m_Name: IceTile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 0f9886524c2bf9a44a8e3f9c14e7ec30, type: 3}
@@ -33,4 +33,12 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 2
+  m_ColliderType: 1
+  blockName: Ice
+  maxHealth: 2
+  score: 5
+  damageTiles:
+  - {fileID: 11400000, guid: c40a30d3fb8892e4cb6d5fb184577953, type: 2}
+  - {fileID: 11400000, guid: 808c1f491bca5fe459f85e8b42a5ddf0, type: 2}
+  - {fileID: 11400000, guid: 38981a5f92d6c304e811c25a07e6072c, type: 2}
+  - {fileID: 11400000, guid: cfbfae36e03c3004588ac5c4010c44b8, type: 2}

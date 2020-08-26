@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
+using UnityEngine.Events;
 
 public class BlocksManager : MonoBehaviour, IDamageable {
 	public string damageLayer { get; protected set; } = "Unfriendly";
@@ -11,41 +13,53 @@ public class BlocksManager : MonoBehaviour, IDamageable {
 	public Tilemap blocksTilemap;
 	public Tilemap breakTexturesTilemap;
 
-	public BlockType[] blockTypes;
-
-	Dictionary<Sprite, BlockType> blockTypesDict = new Dictionary<Sprite, BlockType>();
-
 	public Dictionary<Vector2Int, float> dynamicTileData = new Dictionary<Vector2Int, float>();
 
 	public void Start() {
 		grid = GetComponent<Grid>();
-		foreach (BlockType b in blockTypes) {
-			blockTypesDict.Add(b.sprite, b);
-		}
+	}
+
+	public List<TileBase> GetTilesOfType<T>() where T : TileBase {
+		TileBase[] allTiles = blocksTilemap.GetTilesBlock(blocksTilemap.cellBounds);
+
+		List<TileBase> matches = (from tile in allTiles
+								  where tile is T
+								  select tile).ToList();
+
+		return matches;
 	}
 
 	public void Damage(float damage, Vector2 damageLocation) {
 		Vector3Int position = grid.WorldToCell(new Vector3(damageLocation.x, damageLocation.y, 0));
 		TileBase damaged = blocksTilemap.GetTile(position);
-		if (damaged is Tile t) {
-			if (blockTypesDict.ContainsKey(t.sprite)) {
-				Vector2Int pos = new Vector2Int(position.x, position.y);
-				if (!dynamicTileData.ContainsKey(pos)) {
-					dynamicTileData.Add(pos, blockTypesDict[t.sprite].maxHealth);
-				}
-				dynamicTileData[pos] -= damage;
-				if (dynamicTileData[pos] <= 0) {
-					Player.instance.GiveCoins(blockTypesDict[t.sprite].score);
-					dynamicTileData.Remove(pos);
-					blocksTilemap.SetTile(position, null);
-					breakTexturesTilemap.SetTile(position, null);
-				} else {
-					int n = blockTypesDict[t.sprite].damageTiles.Length;
-					int i = Mathf.FloorToInt((1 - (dynamicTileData[pos] / blockTypesDict[t.sprite].maxHealth)) * n);
-					i = Mathf.Clamp(i, 0, n);
-					breakTexturesTilemap.SetTile(position, blockTypesDict[t.sprite].damageTiles[i]);
-				}
+		if (damaged is BlockTile t) {
+			Vector2Int pos = new Vector2Int(position.x, position.y);
+			if (!dynamicTileData.ContainsKey(pos)) {
+				dynamicTileData.Add(pos, t.maxHealth);
+			}
+			dynamicTileData[pos] -= damage;
+			if (dynamicTileData[pos] <= 0) {
+				Player.instance.GiveCoins(t.score);
+				dynamicTileData.Remove(pos);
+				SetTile(position, null);
+				breakTexturesTilemap.SetTile(position, null);
+			} else {
+				int n = t.damageTiles.Length;
+				int i = Mathf.FloorToInt((1 - (dynamicTileData[pos] / t.maxHealth)) * n);
+				i = Mathf.Clamp(i, 0, n);
+				breakTexturesTilemap.SetTile(position, t.damageTiles[i]);
 			}
 		}
 	}
+
+	public UnityEventTileBaseVector3Int onTileModified = new UnityEventTileBaseVector3Int();
+
+	public void SetTile(Vector3Int pos, TileBase newTile) {
+		TileBase oldTile = blocksTilemap.GetTile(pos);
+		blocksTilemap.SetTile(pos, newTile);
+		onTileModified.Invoke(oldTile, pos);
+	}
 }
+
+[System.Serializable] // original, new (at location)
+public class UnityEventTileBaseVector3Int : UnityEvent<TileBase, Vector3Int> { }
