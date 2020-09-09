@@ -22,6 +22,8 @@ public class Player : MonoBehaviour, IDamageable {
 		}
 		instance = this;
 		rb = GetComponent<Rigidbody2D>();
+
+		Creature.creaturesByType.Add("player", new List<Transform>() { transform });
 	}
 
 	public void Start() {

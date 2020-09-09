@@ -15,6 +15,9 @@ public class BasicTusk : PlayerPart {
 			return;
 		}
 		IDamageable dam = collision.collider.GetComponent<IDamageable>();
+		if (dam == null) {
+			dam = collision.collider.GetComponentInParent<IDamageable>();
+		}
 		if (dam != null) {
 			if (dam.CanBeDamaged(damageLayer)) {
 				Vector2 mySpeed = player.rb.GetPointVelocity(collision.GetContact(0).point);
