@@ -21,8 +21,8 @@ public class ChaseCreatureTypesBehaviour : MonoBehaviour {
 		Transform creatureToChase = null;
 
 		foreach (string type in creatureTypesToChase) {
-			if (!Creature.creaturesByType.ContainsKey(type)) continue;
-			foreach (Transform c in Creature.creaturesByType[type]) {
+			if (!Creature.creatureTransformsByType.ContainsKey(type)) continue;
+			foreach (Transform c in Creature.creatureTransformsByType[type]) {
 				float dist = Vector2.Distance(c.position, transform.position);
 				if (dist <= minDist) {
 					minDist = dist;

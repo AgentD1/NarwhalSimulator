@@ -171,6 +171,7 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 1
   needsToRotate: 1
+  mostRecentDirectionPriority: 2
   health: 2
   score: 10
 --- !u!114 &6562061864962153319

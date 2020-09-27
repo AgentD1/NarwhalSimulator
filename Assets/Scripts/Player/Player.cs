@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-public class Player : MonoBehaviour, IDamageable {
+public class Player : MonoBehaviour, ICreature {
 	public static Player instance;
 
 	Controls input;
@@ -16,6 +16,8 @@ public class Player : MonoBehaviour, IDamageable {
 	public List<ShopItem> defaultPlayerItems = new List<ShopItem>();
 	public List<ShopItem> ownedItems = new List<ShopItem>();
 
+	public string creatureType { get { return "player"; } }
+
 	public void Awake() {
 		if (instance != null) {
 			Debug.LogError("There are more than 1 player!");
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour, IDamageable {
 		instance = this;
 		rb = GetComponent<Rigidbody2D>();
 
-		Creature.creaturesByType.Add("player", new List<Transform>() { transform });
+		Creature.creatureTransformsByType.Add(creatureType, new List<Transform>() { transform });
 	}
 
 	public void Start() {

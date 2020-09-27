@@ -137,43 +137,9 @@ MonoBehaviour:
   grid: {fileID: 0}
   blocksTilemap: {fileID: 7070400776676253767}
   breakTexturesTilemap: {fileID: 7070400776155161874}
-  blockTypes:
-  - sprite: {fileID: 21300000, guid: 0f9886524c2bf9a44a8e3f9c14e7ec30, type: 3}
-    name: Ice
-    maxHealth: 2
-    score: 5
-    damageTiles:
-    - {fileID: 11400000, guid: c40a30d3fb8892e4cb6d5fb184577953, type: 2}
-    - {fileID: 11400000, guid: 808c1f491bca5fe459f85e8b42a5ddf0, type: 2}
-    - {fileID: 11400000, guid: 38981a5f92d6c304e811c25a07e6072c, type: 2}
-    - {fileID: 11400000, guid: cfbfae36e03c3004588ac5c4010c44b8, type: 2}
-  - sprite: {fileID: 21300000, guid: 738f170e8187af14c8a9c925212f147b, type: 3}
-    name: Stone
-    maxHealth: 10
-    score: 10
-    damageTiles:
-    - {fileID: 11400000, guid: c40a30d3fb8892e4cb6d5fb184577953, type: 2}
-    - {fileID: 11400000, guid: 808c1f491bca5fe459f85e8b42a5ddf0, type: 2}
-    - {fileID: 11400000, guid: 38981a5f92d6c304e811c25a07e6072c, type: 2}
-    - {fileID: 11400000, guid: cfbfae36e03c3004588ac5c4010c44b8, type: 2}
-  - sprite: {fileID: 21300000, guid: 3aa1b58384b99db4e86335519a9265f0, type: 3}
-    name: Gold
-    maxHealth: 5
-    score: 150
-    damageTiles:
-    - {fileID: 11400000, guid: c40a30d3fb8892e4cb6d5fb184577953, type: 2}
-    - {fileID: 11400000, guid: 808c1f491bca5fe459f85e8b42a5ddf0, type: 2}
-    - {fileID: 11400000, guid: 38981a5f92d6c304e811c25a07e6072c, type: 2}
-    - {fileID: 11400000, guid: cfbfae36e03c3004588ac5c4010c44b8, type: 2}
-  - sprite: {fileID: 21300000, guid: 491eda1a2d724ff47843d1054d44b321, type: 3}
-    name: Bedrock
-    maxHealth: 100
-    score: 20
-    damageTiles:
-    - {fileID: 11400000, guid: c40a30d3fb8892e4cb6d5fb184577953, type: 2}
-    - {fileID: 11400000, guid: 808c1f491bca5fe459f85e8b42a5ddf0, type: 2}
-    - {fileID: 11400000, guid: 38981a5f92d6c304e811c25a07e6072c, type: 2}
-    - {fileID: 11400000, guid: cfbfae36e03c3004588ac5c4010c44b8, type: 2}
+  onTileModified:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &7070400775755940110
 Rigidbody2D:
   serializedVersion: 4
@@ -209,7 +175,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0.001
   m_ColliderPaths:
@@ -1855,22 +1821,14 @@ CompositeCollider2D:
         Y: 80000000
       - X: 390000000
         Y: 80000000
-    - - X: -49999900
-        Y: 29999959
-      - X: -49999900
-        Y: 40000041
-      - X: -49999959
-        Y: 40000100
-      - X: -60000041
-        Y: 40000100
-      - X: -60000100
-        Y: 40000041
-      - X: -60000100
-        Y: 29999959
-      - X: -60000041
-        Y: 29999900
-      - X: -49999959
-        Y: 29999900
+    - - X: -50000000
+        Y: 40000000
+      - X: -60000000
+        Y: 40000000
+      - X: -60000000
+        Y: 30000000
+      - X: -50000000
+        Y: 30000000
     - - X: -150000000
         Y: 0
       - X: -160000000
@@ -1995,6 +1953,14 @@ CompositeCollider2D:
         Y: -70000000
       - X: -320000000
         Y: -70000000
+    - - X: -130000000
+        Y: -140000000
+      - X: -140000000
+        Y: -140000000
+      - X: -140000000
+        Y: -160000000
+      - X: -130000000
+        Y: -160000000
     - - X: -50000000
         Y: -140000000
       - X: -60000000
@@ -2007,14 +1973,6 @@ CompositeCollider2D:
         Y: -180000000
       - X: -50000000
         Y: -180000000
-    - - X: -130000000
-        Y: -140000000
-      - X: -140000000
-        Y: -140000000
-      - X: -140000000
-        Y: -160000000
-      - X: -130000000
-        Y: -160000000
     - - X: -380000000
         Y: -160000000
       - X: -390000000
@@ -2023,14 +1981,6 @@ CompositeCollider2D:
         Y: -170000000
       - X: -380000000
         Y: -170000000
-    - - X: 50000000
-        Y: -190000000
-      - X: 40000000
-        Y: -190000000
-      - X: 40000000
-        Y: -210000000
-      - X: 50000000
-        Y: -210000000
     - - X: -300000000
         Y: -190000000
       - X: -310000000
@@ -2039,6 +1989,14 @@ CompositeCollider2D:
         Y: -200000000
       - X: -300000000
         Y: -200000000
+    - - X: 50000000
+        Y: -190000000
+      - X: 40000000
+        Y: -190000000
+      - X: 40000000
+        Y: -210000000
+      - X: 50000000
+        Y: -210000000
     - - X: 500000000
         Y: -290000000
       - X: 510000000
@@ -2993,10 +2951,10 @@ CompositeCollider2D:
       - {x: 38.999416, y: 9}
       - {x: 38, y: 8.999414}
       - {x: 38.000587, y: 8}
-    - - {x: -5.0005817, y: 2.99999}
-      - {x: -5.0005817, y: 4.00001}
-      - {x: -6.00001, y: 3.9994185}
-      - {x: -5.9994183, y: 2.99999}
+    - - {x: -5.0005856, y: 3}
+      - {x: -5.0005856, y: 4}
+      - {x: -6, y: 3.9994144}
+      - {x: -5.9994144, y: 3}
     - - {x: -15.000586, y: -1}
       - {x: -15.000586, y: 0}
       - {x: -16, y: -0.0005858}

@@ -23,8 +23,8 @@ public class BoidsBehaviour : MonoBehaviour {
 		int count = 0;
 
 		foreach (string type in creatureTypesToBoidWith) {
-			if (!Creature.creaturesByType.ContainsKey(type)) continue;
-			foreach (Transform t in Creature.creaturesByType[type]) {
+			if (!Creature.creatureTransformsByType.ContainsKey(type)) continue;
+			foreach (Transform t in Creature.creatureTransformsByType[type]) {
 				float dist = Vector2.Distance(transform.position, t.position);
 				float alignmentDifference = Vector2.SignedAngle(rb.velocity, t.GetComponent<Rigidbody2D>().velocity);
 				if (dist <= neighbourhoodDist && Mathf.Abs(alignmentDifference) <= neighbourhoodAngle) {

@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void HealthChanged() {
-		if (p.health == 0 || p.maxHealth == 0) {
+		if (p.maxHealth == 0) {
 			return;
 		}
 		healthbarForeground.sizeDelta = new Vector2(-healthbarBackground.rect.width * (1 - (p.health / p.maxHealth)), healthbarForeground.sizeDelta.y);

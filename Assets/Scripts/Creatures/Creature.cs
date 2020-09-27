@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Creature and the related classes are pretty heavily inspired by Quill18's video on AI. https://www.youtube.com/watch?v=bc86es4YOoc
-public class Creature : MonoBehaviour, IDamageable {
+public class Creature : MonoBehaviour, ICreature {
 	public string creatureType = "None";
 	public float speed = 3f;
 	public float rotationSpeed = 0.1f;
 	public bool needsToRotate = true;
 
-	public static Dictionary<string, List<Transform>> creaturesByType = new Dictionary<string, List<Transform>>();
+	public static Dictionary<string, List<Transform>> creatureTransformsByType = new Dictionary<string, List<Transform>>();
 
 	Rigidbody2D rb;
 
 	public List<WeightedDirection> weightedDirections = new List<WeightedDirection>();
 
+	public WeightedDirection.WeightedDirectionType mostRecentDirectionPriority = WeightedDirection.WeightedDirectionType.Fallback;
+
 	public string damageLayer => "Unfriendly";
+
+	string ICreature.creatureType => creatureType;
 
 	public float health = 5f;
 
@@ -23,14 +27,14 @@ public class Creature : MonoBehaviour, IDamageable {
 
 	public void Awake() {
 		rb = GetComponent<Rigidbody2D>();
-		if (!creaturesByType.ContainsKey(creatureType)) {
-			creaturesByType[creatureType] = new List<Transform>();
+		if (!creatureTransformsByType.ContainsKey(creatureType)) {
+			creatureTransformsByType[creatureType] = new List<Transform>();
 		}
-		creaturesByType[creatureType].Add(transform);
+		creatureTransformsByType[creatureType].Add(transform);
 	}
 
 	public void OnDestroy() {
-		creaturesByType[creatureType].Remove(transform);
+		creatureTransformsByType[creatureType].Remove(transform);
 	}
 
 	Vector2 target = Vector2.zero;
@@ -57,6 +61,13 @@ public class Creature : MonoBehaviour, IDamageable {
 			}
 		}
 
+		mostRecentDirectionPriority = highestPriority;
+
+		if (weightedDirection == Vector2.zero) {
+			rb.velocity = Vector2.zero;
+			return;
+		}
+
 		if (sum != 0) {
 			weightedDirection /= sum;
 			target = transform.position + (Vector3)weightedDirection;
@@ -80,12 +91,6 @@ public class Creature : MonoBehaviour, IDamageable {
 		if (health <= 0) {
 			Player.instance.GiveCoins(score);
 			Destroy(gameObject);
-		}
-	}
-
-	public void OnCollisionEnter2D(Collision2D collision) {
-		if (gameObject.name == "Shork" && collision.gameObject.name.Contains("Fish")) {
-			Destroy(collision.gameObject);
 		}
 	}
 

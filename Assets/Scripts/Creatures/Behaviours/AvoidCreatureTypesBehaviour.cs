@@ -18,8 +18,8 @@ public class AvoidCreatureTypesBehaviour : MonoBehaviour {
 		}
 
 		foreach (string type in creatureTypesToAvoid) {
-			if (!Creature.creaturesByType.ContainsKey(type)) continue;
-			foreach (Transform c in Creature.creaturesByType[type]) {
+			if (!Creature.creatureTransformsByType.ContainsKey(type)) continue;
+			foreach (Transform c in Creature.creatureTransformsByType[type]) {
 				float dist = Vector2.Distance(c.position, transform.position);
 				if (dist < scaredDistance) {
 					me.weightedDirections.Add(new WeightedDirection() {
