@@ -5,18 +5,10 @@ using UnityEngine;
 public class Menu : MonoBehaviour {
 	public bool subMenu = false;
 
-	void Start() {
-
-	}
-
-	void Update() {
-
-	}
-
 	/// <summary>
 	/// Opens the menu
 	/// </summary>
-	public void Open() {
+	public virtual void Open() {
 		gameObject.SetActive(true);
 	}
 
@@ -24,7 +16,7 @@ public class Menu : MonoBehaviour {
 	/// Closes the menu. Returns true if it closed and false if it should stay open
 	/// </summary>
 	/// <returns>Whether the menu closed properly</returns>
-	public bool Close() {
+	public virtual bool Close() {
 		gameObject.SetActive(false);
 		return true;
 	}

@@ -23,7 +23,11 @@ public class MenuManager : MonoBehaviour {
 
 	void Update() {
 		if (input.UI.Cancel.triggered) {
-			CloseCurrentMenu();
+			if (menuStack.Count == 0) {
+				OpenMenu(menus[1]);
+			} else {
+				CloseCurrentMenu();
+			}
 		}
 
 		if (Keyboard.current[Key.O].wasPressedThisFrame) {

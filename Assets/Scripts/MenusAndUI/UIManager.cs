@@ -27,4 +27,9 @@ public class UIManager : MonoBehaviour {
 		}
 		healthbarForeground.sizeDelta = new Vector2(-healthbarBackground.rect.width * (1 - (p.health / p.maxHealth)), healthbarForeground.sizeDelta.y);
 	}
+
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "UnityActions can't point to static methods")]
+	public void CloseGame() {
+		Application.Quit(0);
+	}
 }
