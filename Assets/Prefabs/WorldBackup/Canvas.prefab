@@ -7570,7 +7570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menus:
   - {fileID: 2051211474}
-  - {fileID: 344859675}
+  - {fileID: 0}
 --- !u!1 &1609686004834454986
 GameObject:
   m_ObjectHideFlags: 0

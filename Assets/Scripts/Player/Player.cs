@@ -45,14 +45,6 @@ public class Player : MonoBehaviour, ICreature {
 	}
 
 	public void Update() {
-		if (UnityEngine.InputSystem.Keyboard.current.f2Key.wasPressedThisFrame) {
-			string fileName = DateTime.Now.ToString();
-			fileName = fileName.Replace("/", "-").Replace(" ", "_").Replace(":", "-");
-			string path = Application.persistentDataPath + System.IO.Path.AltDirectorySeparatorChar + "Screenshots" + System.IO.Path.AltDirectorySeparatorChar + "NarwhalSimulator" + fileName + ".png";
-			ScreenCapture.CaptureScreenshot(path);
-			Debug.Log("Screenshot taken and saved as " + path);
-		}
-		// Damage(0.01f, Vector2.zero);
 	}
 
 	#region Parts
